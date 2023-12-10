@@ -1,0 +1,56 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.configure("2") do |config|
+  config.vm.box = "ubuntu/focal64"
+
+  config.vm.define "ansibleMaster_t" do |ansibleMaster_t|
+    ansibleMaster_t.vm.hostname = "ansibleMastert-server"
+    ansibleMaster_t.vm.provider "virtualbox" do |vb|
+      vb.name = "ansibleMastert-server"
+      vb.cpus = 2
+      vb.memory = 2048
+    end
+    
+    ansibleMaster_t.vm.network "public_network", bridge: "Wi-Fi"
+
+    ansibleMaster_t.vm.provision "shell", inline: <<-SCRIPT
+      sudo apt-add-repository ppa:ansible/ansible
+      sudo apt-get update -y
+      sudo apt-get install -y ansible
+    SCRIPT
+  end
+
+  config.vm.define "ansibleNode1t" do |ansibleNode1t|
+    ansibleNode1t.vm.hostname = "ansible-node1t"
+    ansibleNode1t.vm.provider "virtualbox" do |vb|
+      vb.name = "ansible-node1t"
+      vb.cpus = 2
+      vb.memory = 2048
+    end
+    
+    ansibleNode1t.vm.network "public_network", bridge: "Wi-Fi"
+  end
+
+  config.vm.define "ansibleNode2t" do |ansibleNode2t|
+    ansibleNode2t.vm.hostname = "ansible-node2t"
+    ansibleNode2t.vm.provider "virtualbox" do |vb|
+      vb.name = "ansible-node2t"
+      vb.cpus = 2
+      vb.memory = 2048
+    end
+    
+    ansibleNode2t.vm.network "public_network", bridge: "Wi-Fi"
+  end
+
+  config.vm.define "ansibleNode3t" do |ansibleNode3t|
+    ansibleNode3t.vm.hostname = "ansible-node3t"
+    ansibleNode3t.vm.provider "virtualbox" do |vb|
+      vb.name = "ansible-node3t"
+      vb.cpus = 2
+      vb.memory = 2048
+    end
+    
+    ansibleNode3t.vm.network "public_network", bridge: "Wi-Fi"
+  end
+end
